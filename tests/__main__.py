@@ -1,7 +1,12 @@
 import unittest
 import random
 
-from src.weighted_matrix import WeightedMatrix, Column
+from src.weighted_matrix import (
+    WeightedMatrix,
+    Column,
+    _is_full_matrix,
+    _weights_add_up
+)
 
 
 class TestColumnObjects(unittest.TestCase):
@@ -144,6 +149,53 @@ class TestWeightedMatrices(unittest.TestCase):
         self.assertTrue(list(scores.keys()) == [0,1])
         self.assertEqual(scores[0], round((3*0.3)+(7*0.7), 1))
         self.assertEqual(scores[1], round((5*0.3)+(6*0.7), 1))
+
+
+class TestMatrixValidations(unittest.TestCase):
+    def test_matrix_full(self):
+        n = 3
+        k = 4
+        matrix = []
+        for _ in range(k): # Add k columns with n rows
+            col = Column('',0,n)
+            matrix.append(col)
+            for idx in range(n):
+                col.set_value(idx, random.randint(1,10))
+
+        self.assertTrue(_is_full_matrix(matrix))
+
+    def test_matrix_not_full(self):
+        n = 3
+        k = 4
+        matrix = []
+        for _ in range(k): # Add k columns with n rows
+            col = Column('',0,n)
+            matrix.append(col)
+            for idx in range(n-1):
+                # Using range(n-1), the last row in each col will still have zeros
+                col.set_value(idx, random.randint(1,10))
+
+        self.assertFalse(_is_full_matrix(matrix))
+
+    def test_weights_right(self):
+        n = 3
+        matrix = []
+        matrix.append(Column('',0.3,n))
+        matrix.append(Column('',0.5,n))
+        matrix.append(Column('',0.2,n))
+
+        self.assertTrue(_weights_add_up(matrix))
+
+    def test_weights_wrong(self):
+        n = 3
+        matrix = []
+        matrix.append(Column('',0.3,n))
+        matrix.append(Column('',0.2,n))
+        matrix.append(Column('',0.3,n))
+        self.assertFalse(_weights_add_up(matrix)) # sum < 1
+
+        matrix.append(Column('',0.6,n))
+        self.assertFalse(_weights_add_up(matrix)) # sum > 1
 
 
 if __name__ == '__main__':
