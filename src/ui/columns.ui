@@ -18,8 +18,14 @@
    Global settings
    ========================= */
 #form {
-    background-color: #3A4446;
+    background-color: #00181a;
 	font-family: Segoe UI;
+}
+
+/* Selection colors */
+QLineEdit {
+	selection-background-color: #7dd3c0;
+	selection-color: #ffffff;
 }
 
 /* =========================
@@ -30,13 +36,13 @@ QFrame {
 }
 
 #titleFrame {
-    background-color: #4C5A5D;
+    background-color: #00585a;
     padding: 15px;
 	margin: 20px 20px 10px 20px;
 }
 
 #contentFrame {
-    background-color: #5E6E71;
+    background-color: #89b3af;
     padding: 15px;
 	margin: 0px 20px 10px 20px;
 }
@@ -58,7 +64,7 @@ QFrame {
 #instructionLabel {
     font-size: 12pt;
     font-weight: 400;
-    color: #B8C5C8;
+    color: #89b3af;
 }
 
 /* =========================
@@ -96,7 +102,7 @@ QScrollBar::handle:vertical:hover {
    Buttons
    ========================= */
 #backBtn {
-    background-color: #57a695;
+    background-color: #00989b;
     color: #ffffff;
     border: none;
     border-radius: 6px;
@@ -107,11 +113,11 @@ QScrollBar::handle:vertical:hover {
 }
 
 #backBtn:hover {
-    background-color: #6dbfad;
+    background-color: #00bcc0;
 }
 
 #backBtn:pressed {
-    background-color: #3f8878;
+    background-color: #01797b;
 }
 
 #addBtn {
@@ -136,7 +142,7 @@ QScrollBar::handle:vertical:hover {
 }
 
 #nextBtn {
-    background-color: #57a695;
+    background-color: #00989b;
     color: #ffffff;
     border: none;
     border-radius: 6px;
@@ -147,11 +153,21 @@ QScrollBar::handle:vertical:hover {
 }
 
 #nextBtn:hover {
-    background-color: #6dbfad;
+    background-color: #00bcc0;
 }
 
 #nextBtn:pressed {
-    background-color: #3f8878;
+    background-color: #01797b;
+}
+
+#nextBtn:disabled {
+    background-color: #5a6c6e;
+    color: #a0b0b2;
+}
+
+#backBtn:disabled {
+    background-color: #5a6c6e;
+    color: #a0b0b2;
 }
 </string>
   </property>

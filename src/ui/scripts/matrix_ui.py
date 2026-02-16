@@ -12,12 +12,12 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_form(object):
     def setupUi(self, form):
         form.setObjectName("form")
-        form.resize(675, 589)
+        form.resize(839, 649)
         form.setStyleSheet("/* =========================\n"
 "   Global settings\n"
 "   ========================= */\n"
 "#form {\n"
-"    background-color: #3A4446;\n"
+"    background-color: #00181a;\n"
 "    font-family: Segoe UI Semibold;\n"
 "}\n"
 "\n"
@@ -36,14 +36,14 @@ class Ui_form(object):
 "}\n"
 "\n"
 "#titleFrame {\n"
-"    background-color: #4C5A5D;\n"
+"    background-color: #00585a;\n"
 "    padding: 8px;\n"
 "    margin-top: 20;\n"
 "    margin-bottom: 10\n"
 "}\n"
 "\n"
 "#matrixFrame {\n"
-"    background-color: #5E6E71;\n"
+"    background-color: #4b7c78;\n"
 "    padding: 6px;\n"
 "}\n"
 "\n"
@@ -107,12 +107,12 @@ class Ui_form(object):
 "}\n"
 "\n"
 "QTableCornerButton::section {\n"
-"    background-color: #4C5A5D;\n"
+"    background-color: #2d6a65;\n"
 "    border: none\n"
 "}\n"
 "\n"
 "QHeaderView::section {\n"
-"    background-color: #4C5A5D;\n"
+"    background-color: #2d6a65;\n"
 "    color: #F2F1ED;\n"
 "    padding: 6px;\n"
 "    border: none;\n"
@@ -123,9 +123,8 @@ class Ui_form(object):
 "   Buttons\n"
 "   ========================= */\n"
 "QPushButton {\n"
-"    background-color: #57a695;\n"
+"    background-color: #00989b;\n"
 "    color: #ffffff;\n"
-"    border: none;\n"
 "    border-radius: 6px;\n"
 "    padding: 8px 14px;\n"
 "    margin: 5 10 0 10;\n"
@@ -133,16 +132,16 @@ class Ui_form(object):
 "}\n"
 "\n"
 "QPushButton:hover {\n"
-"    background-color: #6dbfad;\n"
+"    background-color: #00bcc0;\n"
 "}\n"
 "\n"
 "QPushButton:pressed {\n"
-"    background-color: #3f8878;\n"
+"    background-color: #01797b;\n"
 "}\n"
 "\n"
 "QPushButton:disabled {\n"
-"    background-color: #83b1a7;\n"
-"    color: #b8d5cf;\n"
+"    background-color: #3d8d8e;\n"
+"    color: #7fb3b5;\n"
 "}\n"
 "")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(form)
@@ -196,9 +195,15 @@ class Ui_form(object):
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
         self.resultsBtn = QtWidgets.QPushButton(parent=self.btnsFrame)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("ui\\icons/score.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.resultsBtn.setIcon(icon)
         self.resultsBtn.setObjectName("resultsBtn")
         self.horizontalLayout.addWidget(self.resultsBtn)
         self.modifyBtn = QtWidgets.QPushButton(parent=self.btnsFrame)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("ui\\icons/edit.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.modifyBtn.setIcon(icon1)
         self.modifyBtn.setObjectName("modifyBtn")
         self.horizontalLayout.addWidget(self.modifyBtn)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
@@ -212,5 +217,5 @@ class Ui_form(object):
         _translate = QtCore.QCoreApplication.translate
         form.setWindowTitle(_translate("form", "Interactive matrix"))
         self.matrixTitle.setText(_translate("form", "Weighted Decision Matrix"))
-        self.resultsBtn.setText(_translate("form", "Show results"))
-        self.modifyBtn.setText(_translate("form", "Modify matrix"))
+        self.resultsBtn.setText(_translate("form", " Show results"))
+        self.modifyBtn.setText(_translate("form", " Modify matrix"))

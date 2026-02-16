@@ -17,8 +17,19 @@ class Ui_form(object):
 "   Global settings\n"
 "   ========================= */\n"
 "#form {\n"
-"    background-color: #3A4446;\n"
+"    background-color: #00181a;\n"
 "    font-family: Segoe UI;\n"
+"}\n"
+"\n"
+"/* Selection colors */\n"
+"QLineEdit {\n"
+"    selection-background-color: #7dd3c0;\n"
+"    selection-color: #ffffff;\n"
+"}\n"
+"\n"
+"QDoubleSpinBox {\n"
+"    selection-background-color: #7dd3c0;\n"
+"    selection-color: #ffffff;\n"
 "}\n"
 "\n"
 "/* =========================\n"
@@ -29,13 +40,13 @@ class Ui_form(object):
 "}\n"
 "\n"
 "#titleFrame {\n"
-"    background-color: #4C5A5D;\n"
+"    background-color: #00585a;\n"
 "    padding: 15px;\n"
 "    margin: 20px 20px 10px 20px;\n"
 "}\n"
 "\n"
 "#contentFrame {\n"
-"    background-color: #5E6E71;\n"
+"    background-color: #89b3af;\n"
 "    padding: 15px;\n"
 "    margin: 0px 20px 10px 20px;\n"
 "}\n"
@@ -57,7 +68,7 @@ class Ui_form(object):
 "#instructionLabel {\n"
 "    font-size: 12pt;\n"
 "    font-weight: 400;\n"
-"    color: #B8C5C8;\n"
+"    color: #89b3af;\n"
 "}\n"
 "\n"
 "/* =========================\n"
@@ -116,7 +127,7 @@ class Ui_form(object):
 "}\n"
 "\n"
 "#nextBtn {\n"
-"    background-color: #57a695;\n"
+"    background-color: #00989b;\n"
 "    color: #ffffff;\n"
 "    border: none;\n"
 "    border-radius: 6px;\n"
@@ -127,11 +138,16 @@ class Ui_form(object):
 "}\n"
 "\n"
 "#nextBtn:hover {\n"
-"    background-color: #6dbfad;\n"
+"    background-color: #00bcc0;\n"
 "}\n"
 "\n"
 "#nextBtn:pressed {\n"
-"    background-color: #3f8878;\n"
+"    background-color: #01797b;\n"
+"}\n"
+"\n"
+"#nextBtn:disabled {\n"
+"    background-color: #5a6c6e;\n"
+"    color: #a0b0b2;\n"
 "}\n"
 "")
         self.verticalLayout = QtWidgets.QVBoxLayout(form)
@@ -159,7 +175,7 @@ class Ui_form(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.itemsWidget = QtWidgets.QWidget()
-        self.itemsWidget.setGeometry(QtCore.QRect(0, 0, 686, 241))
+        self.itemsWidget.setGeometry(QtCore.QRect(0, 0, 686, 249))
         self.itemsWidget.setObjectName("itemsWidget")
         self.itemsLayout = QtWidgets.QVBoxLayout(self.itemsWidget)
         self.itemsLayout.setSpacing(10)

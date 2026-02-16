@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>675</width>
-    <height>589</height>
+    <width>839</width>
+    <height>649</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
    Global settings
    ========================= */
 #form {
-    background-color: #3A4446;
+    background-color: #00181a;
 	font-family: Segoe UI Semibold;
 }
 
@@ -37,14 +37,14 @@ QFrame {
 }
 
 #titleFrame {
-    background-color: #4C5A5D;
+    background-color: #00585a;
     padding: 8px;
 	margin-top: 20;
 	margin-bottom: 10
 }
 
 #matrixFrame {
-    background-color: #5E6E71;
+    background-color: #4b7c78;
     padding: 6px;
 }
 
@@ -108,12 +108,12 @@ QTableWidget QLineEdit {
 }
 
 QTableCornerButton::section {
-    background-color: #4C5A5D;
+    background-color: #2d6a65;
 	border: none
 }
 
 QHeaderView::section {
-    background-color: #4C5A5D;
+    background-color: #2d6a65;
     color: #F2F1ED;
     padding: 6px;
     border: none;
@@ -124,9 +124,8 @@ QHeaderView::section {
    Buttons
    ========================= */
 QPushButton {
-    background-color: #57a695;
+    background-color: #00989b;
     color: #ffffff;
-    border: none;
     border-radius: 6px;
     padding: 8px 14px;
 	margin: 5 10 0 10;
@@ -134,16 +133,16 @@ QPushButton {
 }
 
 QPushButton:hover {
-    background-color: #6dbfad;
+    background-color: #00bcc0;
 }
 
 QPushButton:pressed {
-    background-color: #3f8878;
+    background-color: #01797b;
 }
 
 QPushButton:disabled {
-    background-color: #83b1a7;
-    color: #b8d5cf;
+    background-color: #3d8d8e;
+    color: #7fb3b5;
 }
 </string>
   </property>
@@ -264,14 +263,22 @@ QPushButton:disabled {
       <item>
        <widget class="QPushButton" name="resultsBtn">
         <property name="text">
-         <string>Show results</string>
+         <string> Show results</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/score.png</normaloff>icons/score.png</iconset>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="modifyBtn">
         <property name="text">
-         <string>Modify matrix</string>
+         <string> Modify matrix</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/edit.png</normaloff>icons/edit.png</iconset>
         </property>
        </widget>
       </item>
