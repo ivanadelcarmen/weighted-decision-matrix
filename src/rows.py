@@ -48,9 +48,10 @@ class RowsWindow(QWidget):
         row_frame = QFrame()
         row_frame.setStyleSheet("""
             QFrame {
-                background-color: #FAFAF7;
-                border-radius: 6px;
-                padding: 10px;
+                background-color: #ffffff;
+                border: 1px solid #e1e4e8;
+                border-radius: 8px;
+                padding: 12px;
             }
         """)
         
@@ -61,17 +62,18 @@ class RowsWindow(QWidget):
         item_input.setPlaceholderText(f"Item {len(self.row_widgets) + 1}")
         item_input.setStyleSheet("""
             QLineEdit {
-                background-color: #ffffff;
-                color: #2A3133;
-                border: 2px solid #89b3af;
-                border-radius: 4px;
-                padding: 8px;
+                background-color: #f6f8fa;
+                color: #24292e;
+                border: 2px solid #d1d5da;
+                border-radius: 6px;
+                padding: 10px;
                 font-size: 12pt;
-                selection-background-color: #7dd3c0;
+                selection-background-color: #4a9eff;
                 selection-color: #ffffff;
             }
             QLineEdit:focus {
                 border: 2px solid #00989b;
+                background-color: #ffffff;
             }
         """)
         
@@ -80,18 +82,18 @@ class RowsWindow(QWidget):
         delete_btn.setIcon(QIcon("ui/icons/delete.png"))
         delete_btn.setStyleSheet("""
             QPushButton {
-                background-color: #d9534f;
-                border-radius: 4px;
-                min-width: 40px;
-                max-width: 40px;
-                min-height: 40px;
-                max-height: 40px;
+                background-color: #dc3545;
+                border-radius: 6px;
+                min-width: 42px;
+                max-width: 42px;
+                min-height: 42px;
+                max-height: 42px;
             }
             QPushButton:hover {
-                background-color: #e57373;
+                background-color: #c82333;
             }
             QPushButton:pressed {
-                background-color: #c62828;
+                background-color: #bd2130;
             }
         """)
         delete_btn.clicked.connect(lambda: self.remove_row_widget(row_frame, item_input))

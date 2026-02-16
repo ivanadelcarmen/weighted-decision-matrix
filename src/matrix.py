@@ -6,8 +6,13 @@ from PyQt6.QtWidgets import (
     QStyledItemDelegate,
     QLineEdit,
     QHeaderView,
-    QMessageBox,
-    QTableWidgetItem
+    QTableWidgetItem,
+    QDialog,
+    QVBoxLayout,
+    QHBoxLayout,
+    QLabel,
+    QPushButton,
+    QFrame
 )
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIntValidator
@@ -189,24 +194,241 @@ class MainWindow(QWidget):
         try:
             scores = self.matrix.compute_scores()
             
-            # Build result message
-            result_text = "Weighted Scores:\n\n"
+            # Create custom styled dialog
+            dialog = QDialog(self)
+            dialog.setWindowTitle("Results")
+            dialog.setMinimumWidth(500)
+            dialog.setStyleSheet("""
+                QDialog {
+                    background-color: #1a1d23;
+                }
+            """)
+            
+            layout = QVBoxLayout(dialog)
+            layout.setSpacing(15)
+            layout.setContentsMargins(25, 25, 25, 25)
+            
+            # Scores container
+            scores_frame = QFrame()
+            scores_frame.setStyleSheet("""
+                QFrame {
+                    background-color: #f5f7fa;
+                    border: 1px solid #e1e4e8;
+                    border-radius: 8px;
+                    padding: 15px;
+                }
+            """)
+            scores_layout = QVBoxLayout(scores_frame)
+            scores_layout.setSpacing(10)
+            
+            # Find best score
+            best_idx = max(scores, key=scores.get)
+            
+            # Add each score
             for i in range(self.matrix.rows):
                 item_name = self.matrix.items.get(i, f"Item {i+1}")
                 score = scores[i]
-                result_text += f"{item_name}: {score}\n"
+                is_best = (i == best_idx)
+                
+                score_item = QFrame()
+                if is_best:
+                    score_item.setStyleSheet("""
+                        QFrame {
+                            background-color: #d4f4dd;
+                            border: 2px solid #28a745;
+                            border-radius: 6px;
+                            padding: 12px;
+                        }
+                    """)
+                else:
+                    score_item.setStyleSheet("""
+                        QFrame {
+                            background-color: #ffffff;
+                            border: 1px solid #d1d5da;
+                            border-radius: 6px;
+                            padding: 12px;
+                        }
+                    """)
+                
+                item_layout = QHBoxLayout(score_item)
+                item_layout.setContentsMargins(0, 0, 0, 0)
+                
+                # Item name
+                name_label = QLabel(item_name)
+                if is_best:
+                    name_label.setStyleSheet("""
+                        QLabel {
+                            font-size: 13pt;
+                            font-weight: 600;
+                            color: #1e7e34;
+                        }
+                    """)
+                else:
+                    name_label.setStyleSheet("""
+                        QLabel {
+                            font-size: 12pt;
+                            font-weight: 500;
+                            color: #24292e;
+                        }
+                    """)
+                item_layout.addWidget(name_label)
+                
+                item_layout.addStretch()
+                
+                # Score
+                score_label = QLabel(f"{score:.1f}")
+                if is_best:
+                    score_label.setStyleSheet("""
+                        QLabel {
+                            font-size: 16pt;
+                            font-weight: 700;
+                            color: #28a745;
+                            background-color: #ffffff;
+                            padding: 8px 16px;
+                            border-radius: 6px;
+                        }
+                    """)
+                else:
+                    score_label.setStyleSheet("""
+                        QLabel {
+                            font-size: 14pt;
+                            font-weight: 600;
+                            color: #586069;
+                            background-color: #f6f8fa;
+                            padding: 6px 12px;
+                            border-radius: 6px;
+                        }
+                    """)
+                item_layout.addWidget(score_label)
+                
+                scores_layout.addWidget(score_item)
             
-            # Find the best option
-            best_idx = max(scores, key=scores.get)
-            best_item = self.matrix.items.get(best_idx, f"Item {best_idx+1}")
-            result_text += f"\nBest option: {best_item} ({scores[best_idx]})"
+            layout.addWidget(scores_frame)
             
-            QMessageBox.information(self, "Results", result_text)
+            # Best option label
+            best_label = QLabel(f"Best option: {self.matrix.items.get(best_idx, f'Item {best_idx+1}')}")
+            best_label.setStyleSheet("""
+                QLabel {
+                    font-size: 14pt;
+                    font-weight: 600;
+                    color: #28a745;
+                    background-color: #f5f7fa;
+                    padding: 12px;
+                    border-radius: 8px;
+                    border: 2px solid #28a745;
+                }
+            """)
+            best_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            layout.addWidget(best_label)
+            
+            # Close button
+            close_btn = QPushButton("Close")
+            close_btn.setStyleSheet("""
+                QPushButton {
+                    background-color: #0366d6;
+                    color: #ffffff;
+                    border: none;
+                    border-radius: 8px;
+                    padding: 12px 24px;
+                    font-size: 12pt;
+                    font-weight: 600;
+                    min-width: 120px;
+                }
+                QPushButton:hover {
+                    background-color: #0256c5;
+                }
+                QPushButton:pressed {
+                    background-color: #024ea4;
+                }
+            """)
+            close_btn.clicked.connect(dialog.accept)
+            
+            btn_layout = QHBoxLayout()
+            btn_layout.addStretch()
+            btn_layout.addWidget(close_btn)
+            btn_layout.addStretch()
+            layout.addLayout(btn_layout)
+            
+            dialog.exec()
             
         except ValueError as e:
-            QMessageBox.warning(self, "Error", str(e))
+            # Create styled error dialog
+            self.show_error_dialog(str(e))
         except Exception as e:
-            QMessageBox.warning(self, "Error", f"Could not calculate results: {str(e)}")
+            self.show_error_dialog(f"Could not calculate results: {str(e)}")
+    
+    def show_error_dialog(self, message):
+        """Show a styled error dialog"""
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Error")
+        dialog.setFixedSize(420, 280)
+        dialog.setStyleSheet("""
+            QDialog {
+                background-color: #1a1d23;
+            }
+        """)
+        
+        layout = QVBoxLayout(dialog)
+        layout.setSpacing(15)
+        layout.setContentsMargins(25, 25, 25, 25)
+
+        # Message frame
+        message_frame = QFrame()
+        message_frame.setStyleSheet("""
+            QFrame {
+                background-color: #2d3339;
+                border: 2px solid #dc3545;
+                border-radius: 8px;
+                padding: 15px;
+            }
+        """)
+        message_layout = QVBoxLayout(message_frame)
+        message_layout.setContentsMargins(0, 0, 0, 0)
+        
+        message_label = QLabel(message)
+        message_label.setStyleSheet("""
+            QLabel {
+                font-size: 13pt;
+                color: #f5f7fa;
+                line-height: 1.6;
+                background-color: transparent;
+                border: none;
+            }
+        """)
+        message_label.setWordWrap(True)
+        message_layout.addWidget(message_label)
+        
+        layout.addWidget(message_frame, 1)  # Stretch factor to fill space
+        
+        # OK button
+        ok_btn = QPushButton("OK")
+        ok_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #dc3545;
+                color: #ffffff;
+                border: none;
+                border-radius: 8px;
+                padding: 12px 24px;
+                font-size: 12pt;
+                font-weight: 600;
+                min-width: 120px;
+            }
+            QPushButton:hover {
+                background-color: #c82333;
+            }
+            QPushButton:pressed {
+                background-color: #bd2130;
+            }
+        """)
+        ok_btn.clicked.connect(dialog.accept)
+        
+        btn_layout = QHBoxLayout()
+        btn_layout.addStretch()
+        btn_layout.addWidget(ok_btn)
+        btn_layout.addStretch()
+        layout.addLayout(btn_layout)
+        
+        dialog.exec()
 
 
 if __name__ == '__main__':

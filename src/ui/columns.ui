@@ -6,25 +6,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1100</width>
+    <height>750</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Add columns</string>
+   <string>Weighted Decision Matrix</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/* =========================
    Global settings
    ========================= */
 #form {
-    background-color: #00181a;
+    background-color: #1a1d23;
 	font-family: Segoe UI;
 }
 
 /* Selection colors */
 QLineEdit {
-	selection-background-color: #7dd3c0;
+	selection-background-color: #4a9eff;
 	selection-color: #ffffff;
 }
 
@@ -32,39 +32,43 @@ QLineEdit {
    Frames
    ========================= */
 QFrame {
-    border-radius: 6px;
+    border-radius: 8px;
 }
 
 #titleFrame {
-    background-color: #00585a;
-    padding: 15px;
-	margin: 20px 20px 10px 20px;
+    background: #00989b;
+    padding: 20px;
+	margin: 25px 25px 15px 25px;
+    border: none;
 }
 
 #contentFrame {
-    background-color: #89b3af;
-    padding: 15px;
-	margin: 0px 20px 10px 20px;
+    background-color: #f5f7fa;
+    padding: 20px;
+	margin: 0px 25px 15px 25px;
+    border: 1px solid #e1e4e8;
 }
 
 #buttonsFrame {
     background-color: transparent;
-	margin: 10px 20px 20px 20px;
+	margin: 0px 15px 25px 15px;
 }
 
 /* =========================
    Title styling
    ========================= */
 #titleLabel {
-    font-size: 18pt;
+    font-size: 20pt;
     font-weight: 600;
-    color: #F2F1ED;
+    color: #ffffff;
+    letter-spacing: 0.5px;
 }
 
 #instructionLabel {
-    font-size: 12pt;
+    font-size: 11pt;
     font-weight: 400;
-    color: #89b3af;
+    color: #b8d4f1;
+    margin-top: 5px;
 }
 
 /* =========================
@@ -77,18 +81,30 @@ QScrollArea {
 
 QScrollBar:vertical {
     border: none;
-    background: #4C5A5D;
+    background: #d1d5da;
     width: 10px;
     border-radius: 5px;
+    margin: 0px;
 }
 
 QScrollBar::handle:vertical {
-    background: #6B7B7E;
+    background: #959da5;
     border-radius: 5px;
+    min-height: 20px;
 }
 
 QScrollBar::handle:vertical:hover {
-    background: #7B8B8E;
+    background: #6a737d;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+    border: none;
+    background: none;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
 }
 
 /* =========================
@@ -102,72 +118,77 @@ QScrollBar::handle:vertical:hover {
    Buttons
    ========================= */
 #backBtn {
-    background-color: #00989b;
+    background-color: #6c757d;
     color: #ffffff;
     border: none;
-    border-radius: 6px;
-    padding: 12px 24px;
-    font-size: 14pt;
+    border-radius: 8px;
+    padding: 14px 28px;
+    font-size: 13pt;
     font-weight: 600;
-    min-width: 120px;
+    min-width: 130px;
 }
 
 #backBtn:hover {
-    background-color: #00bcc0;
+    background-color: #5a6268;
 }
 
 #backBtn:pressed {
-    background-color: #01797b;
-}
-
-#addBtn {
-    background-color: #2fb14d;
-    color: #ffffff;
-    border: none;
-    border-radius: 6px;
-    font-size: 24pt;
-    font-weight: bold;
-    min-width: 50px;
-    min-height: 50px;
-    max-width: 50px;
-    max-height: 50px;
-}
-
-#addBtn:hover {
-    background-color: #2ee154;
-}
-
-#addBtn:pressed {
-    background-color: #24943e;
-}
-
-#nextBtn {
-    background-color: #00989b;
-    color: #ffffff;
-    border: none;
-    border-radius: 6px;
-    padding: 12px 24px;
-    font-size: 14pt;
-    font-weight: 600;
-    min-width: 120px;
-}
-
-#nextBtn:hover {
-    background-color: #00bcc0;
-}
-
-#nextBtn:pressed {
-    background-color: #01797b;
-}
-
-#nextBtn:disabled {
-    background-color: #5a6c6e;
-    color: #a0b0b2;
+    background-color: #545b62;
 }
 
 #backBtn:disabled {
-    background-color: #5a6c6e;
-    color: #a0b0b2;
+    background-color: #6c757d;
+    color: #adb5bd;
+}
+
+#addBtn {
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 24pt;
+    font-weight: bold;
+    min-width: 55px;
+    min-height: 55px;
+    max-width: 55px;
+    max-height: 55px;
+}
+
+#addBtn:hover {
+    background-color: #34ce57;
+}
+
+#addBtn:pressed {
+    background-color: #1e7e34;
+}
+
+#nextBtn {
+    background-color: #0366d6;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 28px;
+    font-size: 13pt;
+    font-weight: 600;
+    min-width: 130px;
+}
+
+#nextBtn:hover {
+    background-color: #0256c5;
+}
+
+#nextBtn:pressed {
+    background-color: #024ea4;
+}
+
+#nextBtn:disabled {
+    background-color: #6c757d;
+    color: #adb5bd;
+}
+
+#backBtn:disabled {
+    background-color: #6c757d;
+    color: #adb5bd;
 }
 </string>
   </property>
@@ -217,8 +238,8 @@ QScrollBar::handle:vertical:hover {
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>686</width>
-           <height>241</height>
+           <width>664</width>
+           <height>207</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="criteriaLayout">

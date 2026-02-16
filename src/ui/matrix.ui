@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>839</width>
-    <height>649</height>
+    <width>1100</width>
+    <height>750</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Interactive matrix</string>
+   <string>Weighted Decision Matrix</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/* =========================
    Global settings
    ========================= */
 #form {
-    background-color: #00181a;
+    background-color: #1a1d23;
 	font-family: Segoe UI Semibold;
 }
 
@@ -26,156 +26,149 @@
    Frames
    ========================= */
 QFrame {
-    border-radius: 6px;
+    border-radius: 8px;
     border: none;
 }
 
-#titleFrame,
-#matrixFrame,
-#btnsFrame {
-	margin: 0 20 0 20;
-}
-
-#titleFrame {
-    background-color: #00585a;
-    padding: 8px;
-	margin-top: 20;
-	margin-bottom: 10
-}
-
 #matrixFrame {
-    background-color: #4b7c78;
-    padding: 6px;
+	margin: 20 15 0 15
 }
 
 #btnsFrame {
     background-color: transparent;
-	margin-top: 10;
-	margin-bottom: 10
-}
-
-/* =========================
-   Title
-   ========================= */
-#matrixTitle {
-    font-size: 14pt;
-    font-weight: 600;
-    color: #F2F1ED;
+	margin: 5 15 30 15;
 }
 
 /* =========================
    Table settings
    ========================= */
 QTableWidget {
-    background-color: #FAFAF7;
-    color: #2A3133;
+    background-color: #ffffff;
+    color: #24292e;
 	border: none;
-	selection-background-color: #eef2f3;
-	selection-color: #ffffff;
-	gridline-color: #E0E0E0;
-	font-size: 14pt;
+	selection-background-color: #d4e8ff;
+	selection-color: #24292e;
+	gridline-color: #d1d5da;
+	font-size: 13pt;
 }
 
 QTableWidget::item {
-    border: 1px solid #E0E0E0;
+    border: 1px solid #d1d5da;
     padding: 0px;
     margin: 0px;
 }
 
 QTableWidget::item:selected {
-	background-color: #eef2f3;
-	color: #2A3133;
-	border: 1px solid #4e8fa6;
+	background-color: #d4e8ff;
+	color: #24292e;
+	border: 1px solid #00989b;
 }
 
 QTableWidget::item:focus {
-	background-color: #eef2f3;
-	color: #2A3133;
+	background-color: #d4e8ff;
+	color: #24292e;
 	padding: 0px;
 	margin: 0px;
 }
 
 /* Fix for the editor widget that appears on double-click */
 QTableWidget QLineEdit {
-	border: 2px solid #3c7285;
-	background-color: #eef2f3;
-	color: #2A3133;
+	border: 2px solid #00989b;
+	background-color: #ffffff;
+	color: #24292e;
 	padding: 2px;
 	margin: -1px;
-	font-size: 14pt;
-	selection-background-color: #7dd3c0;
+	font-size: 13pt;
+	selection-background-color: #4a9eff;
 	selection-color: #ffffff;
 }
 
 QTableCornerButton::section {
-    background-color: #2d6a65;
-	border: none
+    background-color: #004b4c;
+	border: none;
 }
 
 QHeaderView::section {
-    background-color: #2d6a65;
-    color: #F2F1ED;
-    padding: 6px;
+    background-color: #00585a;
+    color: #ffffff;
+    padding: 8px;
     border: none;
-    font-weight: 600
+    font-weight: 600;
+    font-size: 12pt;
 }
 
 /* =========================
    Buttons
    ========================= */
 QPushButton {
-    background-color: #00989b;
+    background-color: #0366d6;
     color: #ffffff;
-    border-radius: 6px;
-    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
 	margin: 5 10 0 10;
 	font-size: 12pt;
+    font-weight: 600;
 }
 
 QPushButton:hover {
-    background-color: #00bcc0;
+    background-color: #0256c5;
 }
 
 QPushButton:pressed {
-    background-color: #01797b;
+    background-color: #024ea4;
 }
 
 QPushButton:disabled {
-    background-color: #3d8d8e;
-    color: #7fb3b5;
+    background-color: #6c757d;
+    color: #adb5bd;
+}
+
+#modifyBtn {
+    background-color: #6c757d;
+}
+
+#modifyBtn:hover {
+    background-color: #5a6268;
+}
+
+#modifyBtn:pressed {
+    background-color: #545b62;
+}
+
+/* =========================
+   Scrollbar
+   ========================= */
+QScrollBar:vertical {
+    border: none;
+    background: #d1d5da;
+    width: 10px;
+    border-radius: 5px;
+    margin: 0px;
+}
+
+QScrollBar::handle:vertical {
+    background: #959da5;
+    border-radius: 5px;
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: #6a737d;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+    border: none;
+    background: none;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
 }
 </string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
-   <item>
-    <widget class="QFrame" name="titleFrame">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
-       <widget class="QLabel" name="matrixTitle">
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Weighted Decision Matrix</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
    <item>
     <widget class="QFrame" name="matrixFrame">
      <property name="frameShape">

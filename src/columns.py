@@ -31,9 +31,10 @@ class ColumnsWindow(QWidget):
             for col in self.matrix.matrix:
                 self.add_column_widget()
                 idx = len(self.column_widgets) - 1
-                self.column_widgets[idx][0].setText(col.title)
-
-                weight_str = f"{round(col.weight, 2)}" # Format weight as "0.XX"
+                # Only set text if it's not a default "Criterion X" name
+                if not col.title.startswith("Criterion "):
+                    self.column_widgets[idx][0].setText(col.title)
+                weight_str = f"{round(col.weight, 2)}"
                 self.column_widgets[idx][1].setText(weight_str)
         else:
             # Add initial 2 columns
@@ -52,9 +53,10 @@ class ColumnsWindow(QWidget):
         col_frame = QFrame()
         col_frame.setStyleSheet("""
             QFrame {
-                background-color: #FAFAF7;
-                border-radius: 6px;
-                padding: 10px;
+                background-color: #ffffff;
+                border: 1px solid #e1e4e8;
+                border-radius: 8px;
+                padding: 12px;
             }
         """)
         
@@ -65,23 +67,34 @@ class ColumnsWindow(QWidget):
         name_input.setPlaceholderText(f"Criterion {len(self.column_widgets) + 1}")
         name_input.setStyleSheet("""
             QLineEdit {
-                background-color: #ffffff;
-                color: #2A3133;
-                border: 2px solid #89b3af;
-                border-radius: 4px;
-                padding: 8px;
+                background-color: #f6f8fa;
+                color: #24292e;
+                border: 2px solid #d1d5da;
+                border-radius: 6px;
+                padding: 10px;
                 font-size: 12pt;
-                selection-background-color: #7dd3c0;
+                selection-background-color: #4a9eff;
                 selection-color: #ffffff;
             }
             QLineEdit:focus {
                 border: 2px solid #00989b;
+                background-color: #ffffff;
             }
         """)
         
         # Weight label
-        weight_label = QLabel("Weight:")
-        weight_label.setStyleSheet("color: #2A3133; font-size: 11pt;")
+        weight_label = QLabel("Weight")
+        weight_label.setStyleSheet("""
+            QLabel {
+                color: #24292e;
+                font-size: 11pt;
+                font-weight: 600;
+                padding: 0 10 0 10;
+                margin: 0;
+            }
+        """)
+        weight_label.setFixedHeight(50)
+        weight_label.setAlignment(Qt.AlignmentFlag.AlignVCenter)
         
         # Weight input (QLineEdit with "0." prefix)
         weight_input = QLineEdit()
@@ -89,18 +102,19 @@ class ColumnsWindow(QWidget):
         weight_input.setMaxLength(4)  # "0.XX" format
         weight_input.setStyleSheet("""
             QLineEdit {
-                background-color: #ffffff;
-                color: #2A3133;
-                border: 2px solid #89b3af;
-                border-radius: 4px;
-                padding: 8px;
+                background-color: #f6f8fa;
+                color: #24292e;
+                border: 2px solid #d1d5da;
+                border-radius: 6px;
+                padding: 10px;
                 font-size: 12pt;
-                min-width: 80px;
-                selection-background-color: #7dd3c0;
+                min-width: 90px;
+                selection-background-color: #4a9eff;
                 selection-color: #ffffff;
             }
             QLineEdit:focus {
                 border: 2px solid #00989b;
+                background-color: #ffffff;
             }
         """)
         
@@ -113,18 +127,18 @@ class ColumnsWindow(QWidget):
         delete_btn.setIcon(QIcon("ui/icons/delete.png"))
         delete_btn.setStyleSheet("""
             QPushButton {
-                background-color: #d9534f;
-                border-radius: 4px;
-                min-width: 40px;
-                max-width: 40px;
-                min-height: 40px;
-                max-height: 40px;
+                background-color: #dc3545;
+                border-radius: 6px;
+                min-width: 42px;
+                max-width: 42px;
+                min-height: 42px;
+                max-height: 42px;
             }
             QPushButton:hover {
-                background-color: #e57373;
+                background-color: #c82333;
             }
             QPushButton:pressed {
-                background-color: #c62828;
+                background-color: #bd2130;
             }
         """)
         delete_btn.clicked.connect(lambda: self.remove_column_widget(col_frame, name_input, weight_input))
@@ -169,7 +183,7 @@ class ColumnsWindow(QWidget):
             weight_input.setCursorPosition(2)
             return
         
-        # Remove "0." prefix to check the rest
+        # Check the rest
         decimal_part = text[2:]
         
         # Only allow digits in decimal part
@@ -201,8 +215,11 @@ class ColumnsWindow(QWidget):
         filled_count = 0
         has_blank = False
         
-        for name, weight in self.column_widgets:
+        for name, _ in self.column_widgets:
             text = name.text().strip()
+            # Count placeholder as filled
+            if not text:
+                text = name.placeholderText()
             if text:
                 filled_count += 1
             else:
@@ -214,10 +231,16 @@ class ColumnsWindow(QWidget):
         is_valid = filled_count >= 2 and not has_blank and abs(total_weight - 1.0) < 0.01
         self.ui.nextBtn.setEnabled(is_valid)
         
-        # Update instruction label to show current weight sum
+        if abs(total_weight - 1.0) < 0.01:
+            weight_color = "#51e14c"
+        else:
+            weight_color = "#3F3F3F"
+        
+        # Enable rich text rendering
+        self.ui.instructionLabel.setTextFormat(Qt.TextFormat.RichText)
         self.ui.instructionLabel.setText(
-            f"Add criteria with weights that sum to 1.0 (minimum 2, maximum 8)\n"
-            f"Current total: {round(total_weight, 2)}"
+            f'Add criteria with weights that sum to 1.0 (minimum 2, maximum 8)<br>'
+            f'<span style="font-weight: 700; color: {weight_color}; font-size: 12pt">Current total: {round(total_weight, 2)}</span>'
         )
     
     def save_and_close(self):
@@ -229,6 +252,9 @@ class ColumnsWindow(QWidget):
             # Update existing columns
             for i, (name_input, weight_input) in enumerate(self.column_widgets):
                 text = name_input.text().strip()
+                # Use placeholder if no text entered
+                if not text:
+                    text = name_input.placeholderText()
                 weight = self.get_weight_value(weight_input)
                 if text:
                     if i < current_col_count:
