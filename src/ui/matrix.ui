@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>form</class>
+ <widget class="QWidget" name="form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>675</width>
+    <height>589</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Interactive matrix</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* =========================
+   Global settings
+   ========================= */
+#form {
+    background-color: #3A4446;
+	font-family: Segoe UI Semibold;
+}
+
+/* =========================
+   Frames
+   ========================= */
+QFrame {
+    border-radius: 6px;
+    border: none;
+}
+
+#titleFrame,
+#matrixFrame,
+#btnsFrame {
+	margin: 0 20 0 20;
+}
+
+#titleFrame {
+    background-color: #4C5A5D;
+    padding: 8px;
+	margin-top: 20;
+	margin-bottom: 10
+}
+
+#matrixFrame {
+    background-color: #5E6E71;
+    padding: 6px;
+}
+
+#btnsFrame {
+    background-color: transparent;
+	margin-top: 10;
+	margin-bottom: 10
+}
+
+/* =========================
+   Title
+   ========================= */
+#matrixTitle {
+    font-size: 14pt;
+    font-weight: 600;
+    color: #F2F1ED;
+}
+
+/* =========================
+   Table settings
+   ========================= */
+QTableWidget {
+    background-color: #FAFAF7;
+    color: #2A3133;
+	border: none;
+	selection-background-color: #eef2f3;
+	selection-color: #ffffff;
+	gridline-color: #E0E0E0;
+	font-size: 14pt;
+}
+
+QTableWidget::item {
+    border: 1px solid #E0E0E0;
+    padding: 0px;
+    margin: 0px;
+}
+
+QTableWidget::item:selected {
+	background-color: #eef2f3;
+	color: #2A3133;
+	border: 1px solid #4e8fa6;
+}
+
+QTableWidget::item:focus {
+	background-color: #eef2f3;
+	color: #2A3133;
+	padding: 0px;
+	margin: 0px;
+}
+
+/* Fix for the editor widget that appears on double-click */
+QTableWidget QLineEdit {
+	border: 2px solid #3c7285;
+	background-color: #eef2f3;
+	color: #2A3133;
+	padding: 2px;
+	margin: -1px;
+	font-size: 14pt;
+	selection-background-color: #7dd3c0;
+	selection-color: #ffffff;
+}
+
+QTableCornerButton::section {
+    background-color: #4C5A5D;
+	border: none
+}
+
+QHeaderView::section {
+    background-color: #4C5A5D;
+    color: #F2F1ED;
+    padding: 6px;
+    border: none;
+    font-weight: 600
+}
+
+/* =========================
+   Buttons
+   ========================= */
+QPushButton {
+    background-color: #57a695;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+	margin: 5 10 0 10;
+	font-size: 12pt;
+}
+
+QPushButton:hover {
+    background-color: #6dbfad;
+}
+
+QPushButton:pressed {
+    background-color: #3f8878;
+}
+
+QPushButton:disabled {
+    background-color: #83b1a7;
+    color: #b8d5cf;
+}
+</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_3">
+   <item>
+    <widget class="QFrame" name="titleFrame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="matrixTitle">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Weighted Decision Matrix</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="matrixFrame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QTableWidget" name="matrixTable">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::DoubleClicked|QAbstractItemView::SelectedClicked</set>
+        </property>
+        <property name="showGrid">
+         <bool>true</bool>
+        </property>
+        <property name="gridStyle">
+         <enum>Qt::SolidLine</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="cornerButtonEnabled">
+         <bool>false</bool>
+        </property>
+        <property name="rowCount">
+         <number>2</number>
+        </property>
+        <property name="columnCount">
+         <number>2</number>
+        </property>
+        <attribute name="horizontalHeaderCascadingSectionResizes">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>150</number>
+        </attribute>
+        <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="verticalHeaderDefaultSectionSize">
+         <number>100</number>
+        </attribute>
+        <attribute name="verticalHeaderStretchLastSection">
+         <bool>true</bool>
+        </attribute>
+        <row/>
+        <row/>
+        <column/>
+        <column/>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="btnsFrame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="resultsBtn">
+        <property name="text">
+         <string>Show results</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="modifyBtn">
+        <property name="text">
+         <string>Modify matrix</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

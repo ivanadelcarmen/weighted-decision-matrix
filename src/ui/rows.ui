@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>form</class>
+ <widget class="QWidget" name="form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Add rows</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* =========================
+   Global settings
+   ========================= */
+#form {
+    background-color: #3A4446;
+	font-family: Segoe UI;
+}
+
+/* =========================
+   Frames
+   ========================= */
+QFrame {
+    border-radius: 6px;
+}
+
+#titleFrame {
+    background-color: #4C5A5D;
+    padding: 15px;
+	margin: 20px 20px 10px 20px;
+}
+
+#contentFrame {
+    background-color: #5E6E71;
+    padding: 15px;
+	margin: 0px 20px 10px 20px;
+}
+
+#buttonsFrame {
+    background-color: transparent;
+	margin: 10px 20px 20px 20px;
+}
+
+/* =========================
+   Title styling
+   ========================= */
+#titleLabel {
+    font-size: 18pt;
+    font-weight: 600;
+    color: #F2F1ED;
+}
+
+#instructionLabel {
+    font-size: 12pt;
+    font-weight: 400;
+    color: #B8C5C8;
+}
+
+/* =========================
+   Scroll area
+   ========================= */
+QScrollArea {
+    border: none;
+    background-color: transparent;
+}
+
+QScrollBar:vertical {
+    border: none;
+    background: #4C5A5D;
+    width: 10px;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:vertical {
+    background: #6B7B7E;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: #7B8B8E;
+}
+
+/* =========================
+   Item cards
+   ========================= */
+#itemsWidget {
+    background-color: transparent;
+}
+
+/* =========================
+   Buttons
+   ========================= */
+#addBtn {
+    background-color: #2fb14d;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 24pt;
+    font-weight: bold;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px;
+}
+
+#addBtn:hover {
+    background-color: #2ee154;
+}
+
+#addBtn:pressed {
+    background-color: #24943e;
+}
+
+#nextBtn {
+    background-color: #57a695;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 24px;
+    font-size: 14pt;
+    font-weight: 600;
+    min-width: 120px;
+}
+
+#nextBtn:hover {
+    background-color: #6dbfad;
+}
+
+#nextBtn:pressed {
+    background-color: #3f8878;
+}
+</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QFrame" name="titleFrame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="titleLabel">
+        <property name="text">
+         <string>Add rows</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="instructionLabel">
+        <property name="text">
+         <string>Add the items you want to compare (minimum 2, maximum 8)</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="contentFrame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QScrollArea" name="scrollArea">
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="itemsWidget">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>686</width>
+           <height>241</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="itemsLayout">
+          <property name="spacing">
+           <number>10</number>
+          </property>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="buttonsFrame">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>15</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="addBtn">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/add.png</normaloff>icons/add.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="nextBtn">
+        <property name="text">
+         <string>Next</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
