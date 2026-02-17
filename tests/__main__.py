@@ -1,7 +1,7 @@
 import unittest
 import random
 
-from src.weighted_matrix import (
+from src.core.weighted_matrix import (
     WeightedMatrix,
     Column,
     _is_full_matrix,
