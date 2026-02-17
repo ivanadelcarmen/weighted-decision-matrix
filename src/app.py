@@ -130,11 +130,8 @@ class MainApp(QMainWindow):
         # Update existing columns
         for i, (name_input, weight_input) in enumerate(self.columns_screen.column_widgets):
             text = name_input.text().strip()
-            # Use placeholder if no text entered
-            if not text:
-                text = name_input.placeholderText()
             weight = self.columns_screen.get_weight_value(weight_input)
-            if text:
+            if text:  # Only save if there's actual text
                 if i < current_col_count:
                     self.matrix.update_column_attr(i + 1, text)
                     self.matrix.update_column_weight(i + 1, weight)

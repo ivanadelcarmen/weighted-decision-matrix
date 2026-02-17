@@ -48,10 +48,11 @@ class RowsWindow(QWidget):
         row_frame = QFrame()
         row_frame.setStyleSheet("""
             QFrame {
-                background-color: #ffffff;
-                border: 1px solid #e1e4e8;
+                background-color: #D4E8FF;
+                border: none;
                 border-radius: 8px;
                 padding: 12px;
+                margin: 5px 0px 5px 0
             }
         """)
         
@@ -88,6 +89,7 @@ class RowsWindow(QWidget):
                 max-width: 42px;
                 min-height: 42px;
                 max-height: 42px;
+                margin-left: 10px
             }
             QPushButton:hover {
                 background-color: #c82333;

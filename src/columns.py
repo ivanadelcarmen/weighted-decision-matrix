@@ -53,10 +53,11 @@ class ColumnsWindow(QWidget):
         col_frame = QFrame()
         col_frame.setStyleSheet("""
             QFrame {
-                background-color: #ffffff;
-                border: 1px solid #e1e4e8;
+                background-color: #D4E8FF;
+                border: none;
                 border-radius: 8px;
                 padding: 12px;
+                margin: 5px 0px 5px 0
             }
         """)
         
@@ -90,6 +91,8 @@ class ColumnsWindow(QWidget):
                 font-size: 11pt;
                 font-weight: 600;
                 padding: 0 10 0 10;
+                background-color: #fff;
+                border: 3px solid #e1e4e8;
                 margin: 0;
             }
         """)
@@ -133,6 +136,7 @@ class ColumnsWindow(QWidget):
                 max-width: 42px;
                 min-height: 42px;
                 max-height: 42px;
+                margin-left: 10px
             }
             QPushButton:hover {
                 background-color: #c82333;
@@ -211,15 +215,13 @@ class ColumnsWindow(QWidget):
     
     def update_next_button(self):
         """Enable/disable next button based on valid input"""
-        # Check if all columns have text
+        # Check if all columns have actual text
         filled_count = 0
         has_blank = False
         
         for name, _ in self.column_widgets:
             text = name.text().strip()
-            # Count placeholder as filled
-            if not text:
-                text = name.placeholderText()
+            # Only count if user actually entered text
             if text:
                 filled_count += 1
             else:
@@ -227,7 +229,7 @@ class ColumnsWindow(QWidget):
         
         total_weight = sum(self.get_weight_value(weight) for _, weight in self.column_widgets)
         
-        # Enable if at least 2 valid columns, none are blank, and weights sum to 1.0
+        # Enable if at least 2 columns with actual text, none are blank, and weights sum to 1.0
         is_valid = filled_count >= 2 and not has_blank and abs(total_weight - 1.0) < 0.01
         self.ui.nextBtn.setEnabled(is_valid)
         
@@ -235,7 +237,7 @@ class ColumnsWindow(QWidget):
         if abs(total_weight - 1.0) < 0.01:
             weight_color = "#51e14c"
         else:
-            weight_color = "#fd7070"
+            weight_color = "#e24646"
         
         # Update the weightLabel with current total
         self.ui.weightLabel.setText(f"Current total: {round(total_weight, 2)}")
@@ -256,11 +258,8 @@ class ColumnsWindow(QWidget):
             # Update existing columns
             for i, (name_input, weight_input) in enumerate(self.column_widgets):
                 text = name_input.text().strip()
-                # Use placeholder if no text entered
-                if not text:
-                    text = name_input.placeholderText()
                 weight = self.get_weight_value(weight_input)
-                if text:
+                if text:  # Only save if there's actual text
                     if i < current_col_count:
                         # Update existing column
                         self.matrix.update_column_attr(i + 1, text)

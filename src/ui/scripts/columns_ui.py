@@ -35,17 +35,17 @@ class Ui_form(object):
 "}\n"
 "\n"
 "#titleFrame {\n"
-"    background: #00989b;\n"
+"    background: #004b4c;\n"
 "    padding: 20px;\n"
 "    margin: 25px 25px 15px 25px;\n"
 "    border: none;\n"
 "}\n"
 "\n"
 "#contentFrame {\n"
-"    background-color: #f5f7fa;\n"
+"    background-color: #00989b;\n"
 "    padding: 20px;\n"
 "    margin: 0px 25px 15px 25px;\n"
-"    border: 1px solid #e1e4e8;\n"
+"    border: none;\n"
 "}\n"
 "\n"
 "#buttonsFrame {\n"
@@ -66,13 +66,12 @@ class Ui_form(object):
 "#instructionLabel {\n"
 "    font-size: 14pt;\n"
 "    font-weight: 400;\n"
-"    color: #b8d4f1;\n"
+"    color: #00989b;\n"
 "    margin-top: 5px;\n"
 "}\n"
 "\n"
 "#weightLabel {\n"
-"    font-size: 16pt;\n"
-"    margin-top: 5\n"
+"    margin-top: 3\n"
 "}\n"
 "\n"
 "/* =========================\n"
@@ -227,7 +226,7 @@ class Ui_form(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.criteriaWidget = QtWidgets.QWidget()
-        self.criteriaWidget.setGeometry(QtCore.QRect(0, 0, 964, 306))
+        self.criteriaWidget.setGeometry(QtCore.QRect(0, 0, 966, 310))
         self.criteriaWidget.setObjectName("criteriaWidget")
         self.criteriaLayout = QtWidgets.QVBoxLayout(self.criteriaWidget)
         self.criteriaLayout.setSpacing(10)

@@ -257,7 +257,7 @@ class MainWindow(QWidget):
         # Create custom styled dialog
         dialog = QDialog(self)
         dialog.setWindowTitle("Results")
-        dialog.setWindowIcon(QIcon('./ui/icons/grid.png'))
+        dialog.setWindowIcon(QIcon('ui/icons/grid.png'))
         dialog.setMinimumWidth(500)
         dialog.setStyleSheet("""
             QDialog {

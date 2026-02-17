@@ -35,17 +35,17 @@ class Ui_form(object):
 "}\n"
 "\n"
 "#titleFrame {\n"
-"    background: #00989b;\n"
+"    background: #004b4c;\n"
 "    padding: 20px;\n"
 "    margin: 25px 25px 15px 25px;\n"
 "    border: none;\n"
 "}\n"
 "\n"
 "#contentFrame {\n"
-"    background-color: #f5f7fa;\n"
+"    background-color: #00989b;\n"
 "    padding: 20px;\n"
 "    margin: 0px 25px 15px 25px;\n"
-"    border: 1px solid #e1e4e8;\n"
+"    border: none;\n"
 "}\n"
 "\n"
 "#buttonsFrame {\n"
@@ -66,7 +66,7 @@ class Ui_form(object):
 "#instructionLabel {\n"
 "    font-size: 14pt;\n"
 "    font-weight: 400;\n"
-"    color: #b8d4f1;\n"
+"    color: #00989b;\n"
 "    margin-top: 5px;\n"
 "}\n"
 "\n"
@@ -186,7 +186,7 @@ class Ui_form(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.itemsWidget = QtWidgets.QWidget()
-        self.itemsWidget.setGeometry(QtCore.QRect(0, 0, 664, 224))
+        self.itemsWidget.setGeometry(QtCore.QRect(0, 0, 966, 353))
         self.itemsWidget.setObjectName("itemsWidget")
         self.itemsLayout = QtWidgets.QVBoxLayout(self.itemsWidget)
         self.itemsLayout.setSpacing(10)

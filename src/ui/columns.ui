@@ -36,17 +36,17 @@ QFrame {
 }
 
 #titleFrame {
-    background: #00989b;
+    background: #004b4c;
     padding: 20px;
 	margin: 25px 25px 15px 25px;
     border: none;
 }
 
 #contentFrame {
-    background-color: #f5f7fa;
+    background-color: #00989b;
     padding: 20px;
 	margin: 0px 25px 15px 25px;
-    border: 1px solid #e1e4e8;
+    border: none;
 }
 
 #buttonsFrame {
@@ -67,12 +67,12 @@ QFrame {
 #instructionLabel {
     font-size: 14pt;
     font-weight: 400;
-    color: #b8d4f1;
+    color: #00989b;
     margin-top: 5px;
 }
 
 #weightLabel {
-	margin-top: 5
+	margin-top: 3
 }
 
 /* =========================
@@ -257,8 +257,8 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>964</width>
-           <height>306</height>
+           <width>966</width>
+           <height>310</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="criteriaLayout">
