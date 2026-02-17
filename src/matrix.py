@@ -14,7 +14,7 @@ from PyQt6.QtWidgets import (
     QPushButton,
     QFrame
 )
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QIntValidator
 
 from ui.scripts.matrix_ui import Ui_form
@@ -22,6 +22,9 @@ from core.weighted_matrix import WeightedMatrix
 
 
 class CellDoubleClickDelegate(QStyledItemDelegate):
+    # Signal to notify when editor content changes
+    editorContentChanged = pyqtSignal()
+    
     def createEditor(self, parent, option, index):
         editor = QLineEdit(parent)
         
@@ -34,7 +37,7 @@ class CellDoubleClickDelegate(QStyledItemDelegate):
         validator.setTop(10)
         editor.setValidator(validator)
         
-        # Connect textChanged to enforce strict validation
+        # Connect textChanged to enforce strict validation and emit signal
         editor.textChanged.connect(lambda text: self.validate_input(editor, text))
         
         return editor
@@ -55,6 +58,9 @@ class CellDoubleClickDelegate(QStyledItemDelegate):
                     editor.setText(text[0])
                 elif num < 1:
                     editor.clear()
+                else:
+                    # Valid input, emit signal
+                    self.editorContentChanged.emit()
             except ValueError:
                 pass
     
@@ -83,7 +89,13 @@ class MainWindow(QWidget):
         self.matrix = matrix if matrix else WeightedMatrix()
 
         table = self.ui.matrixTable
-        table.setItemDelegate(CellDoubleClickDelegate())
+        
+        # Create and set delegate
+        self.delegate = CellDoubleClickDelegate()
+        table.setItemDelegate(self.delegate)
+        
+        # Connect delegate signal to update button state
+        self.delegate.editorContentChanged.connect(self.update_results_button)
         
         # Configure table to stretch columns and rows equally
         self.setup_table_stretching()
@@ -101,6 +113,9 @@ class MainWindow(QWidget):
         else:
             # Update display with existing matrix data
             self.update_table_display()
+        
+        # Check if results button should be enabled
+        self.update_results_button()
     
     def setup_table_stretching(self):
         """Configure the table to stretch columns and rows equally"""
@@ -134,6 +149,9 @@ class MainWindow(QWidget):
                     self.matrix.update_value(value, row + 1, col + 1)
             except:
                 pass
+        
+        # Update results button state after cell change
+        self.update_results_button()
     
     def open_modify_dialog(self):
         """Open rows dialog to modify matrix"""
@@ -175,6 +193,9 @@ class MainWindow(QWidget):
         
         # Unblock signals
         table.blockSignals(False)
+        
+        # Update results button state
+        self.update_results_button()
     
     def initialize_default_matrix(self):
         """Initialize matrix with default 2x2 setup"""
@@ -189,179 +210,54 @@ class MainWindow(QWidget):
         # Update display
         self.update_table_display()
     
+    def update_results_button(self):
+        """Enable/disable results button based on matrix completion"""
+        # Check if all cells are filled (either in matrix or in active editor)
+        is_complete = True
+        table = self.ui.matrixTable
+        
+        for row_idx in range(self.matrix.rows):
+            for col_idx in range(self.matrix.cols):
+                # Check if there's an active editor for this cell
+                current_item = table.item(row_idx, col_idx)
+                current_editor = table.cellWidget(row_idx, col_idx)
+                
+                # If there's an editor, check its content
+                if current_editor and isinstance(current_editor, QLineEdit):
+                    text = current_editor.text()
+                    if not text or not (1 <= int(text) <= 10):
+                        is_complete = False
+                        break
+                # Otherwise check the item or matrix value
+                elif current_item and current_item.text():
+                    try:
+                        value = int(current_item.text())
+                        if not (1 <= value <= 10):
+                            is_complete = False
+                            break
+                    except:
+                        is_complete = False
+                        break
+                else:
+                    # Check matrix value
+                    if self.matrix.matrix[col_idx].values[row_idx] == 0:
+                        is_complete = False
+                        break
+            
+            if not is_complete:
+                break
+        
+        # Enable button only if matrix is complete
+        self.ui.resultsBtn.setEnabled(is_complete)
+    
     def show_results(self):
         """Calculate and display the weighted scores"""
-        try:
-            scores = self.matrix.compute_scores()
-            
-            # Create custom styled dialog
-            dialog = QDialog(self)
-            dialog.setWindowTitle("Results")
-            dialog.setMinimumWidth(500)
-            dialog.setStyleSheet("""
-                QDialog {
-                    background-color: #1a1d23;
-                }
-            """)
-            
-            layout = QVBoxLayout(dialog)
-            layout.setSpacing(15)
-            layout.setContentsMargins(25, 25, 25, 25)
-            
-            # Scores container
-            scores_frame = QFrame()
-            scores_frame.setStyleSheet("""
-                QFrame {
-                    background-color: #f5f7fa;
-                    border: 1px solid #e1e4e8;
-                    border-radius: 8px;
-                    padding: 15px;
-                }
-            """)
-            scores_layout = QVBoxLayout(scores_frame)
-            scores_layout.setSpacing(10)
-            
-            # Find best score
-            best_idx = max(scores, key=scores.get)
-            
-            # Add each score
-            for i in range(self.matrix.rows):
-                item_name = self.matrix.items.get(i, f"Item {i+1}")
-                score = scores[i]
-                is_best = (i == best_idx)
-                
-                score_item = QFrame()
-                if is_best:
-                    score_item.setStyleSheet("""
-                        QFrame {
-                            background-color: #d4f4dd;
-                            border: 2px solid #28a745;
-                            border-radius: 6px;
-                            padding: 12px;
-                        }
-                    """)
-                else:
-                    score_item.setStyleSheet("""
-                        QFrame {
-                            background-color: #ffffff;
-                            border: 1px solid #d1d5da;
-                            border-radius: 6px;
-                            padding: 12px;
-                        }
-                    """)
-                
-                item_layout = QHBoxLayout(score_item)
-                item_layout.setContentsMargins(0, 0, 0, 0)
-                
-                # Item name
-                name_label = QLabel(item_name)
-                if is_best:
-                    name_label.setStyleSheet("""
-                        QLabel {
-                            font-size: 13pt;
-                            font-weight: 600;
-                            color: #1e7e34;
-                        }
-                    """)
-                else:
-                    name_label.setStyleSheet("""
-                        QLabel {
-                            font-size: 12pt;
-                            font-weight: 500;
-                            color: #24292e;
-                        }
-                    """)
-                item_layout.addWidget(name_label)
-                
-                item_layout.addStretch()
-                
-                # Score
-                score_label = QLabel(f"{score:.1f}")
-                if is_best:
-                    score_label.setStyleSheet("""
-                        QLabel {
-                            font-size: 16pt;
-                            font-weight: 700;
-                            color: #28a745;
-                            background-color: #ffffff;
-                            padding: 8px 16px;
-                            border-radius: 6px;
-                        }
-                    """)
-                else:
-                    score_label.setStyleSheet("""
-                        QLabel {
-                            font-size: 14pt;
-                            font-weight: 600;
-                            color: #586069;
-                            background-color: #f6f8fa;
-                            padding: 6px 12px;
-                            border-radius: 6px;
-                        }
-                    """)
-                item_layout.addWidget(score_label)
-                
-                scores_layout.addWidget(score_item)
-            
-            layout.addWidget(scores_frame)
-            
-            # Best option label
-            best_label = QLabel(f"Best option: {self.matrix.items.get(best_idx, f'Item {best_idx+1}')}")
-            best_label.setStyleSheet("""
-                QLabel {
-                    font-size: 14pt;
-                    font-weight: 600;
-                    color: #28a745;
-                    background-color: #f5f7fa;
-                    padding: 12px;
-                    border-radius: 8px;
-                    border: 2px solid #28a745;
-                }
-            """)
-            best_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            layout.addWidget(best_label)
-            
-            # Close button
-            close_btn = QPushButton("Close")
-            close_btn.setStyleSheet("""
-                QPushButton {
-                    background-color: #0366d6;
-                    color: #ffffff;
-                    border: none;
-                    border-radius: 8px;
-                    padding: 12px 24px;
-                    font-size: 12pt;
-                    font-weight: 600;
-                    min-width: 120px;
-                }
-                QPushButton:hover {
-                    background-color: #0256c5;
-                }
-                QPushButton:pressed {
-                    background-color: #024ea4;
-                }
-            """)
-            close_btn.clicked.connect(dialog.accept)
-            
-            btn_layout = QHBoxLayout()
-            btn_layout.addStretch()
-            btn_layout.addWidget(close_btn)
-            btn_layout.addStretch()
-            layout.addLayout(btn_layout)
-            
-            dialog.exec()
-            
-        except ValueError as e:
-            # Create styled error dialog
-            self.show_error_dialog(str(e))
-        except Exception as e:
-            self.show_error_dialog(f"Could not calculate results: {str(e)}")
-    
-    def show_error_dialog(self, message):
-        """Show a styled error dialog"""
+        scores = self.matrix.compute_scores()
+        
+        # Create custom styled dialog
         dialog = QDialog(self)
-        dialog.setWindowTitle("Error")
-        dialog.setFixedSize(420, 280)
+        dialog.setWindowTitle("Results")
+        dialog.setMinimumWidth(500)
         dialog.setStyleSheet("""
             QDialog {
                 background-color: #1a1d23;
@@ -371,40 +267,125 @@ class MainWindow(QWidget):
         layout = QVBoxLayout(dialog)
         layout.setSpacing(15)
         layout.setContentsMargins(25, 25, 25, 25)
-
-        # Message frame
-        message_frame = QFrame()
-        message_frame.setStyleSheet("""
+        
+        # Scores container
+        scores_frame = QFrame()
+        scores_frame.setStyleSheet("""
             QFrame {
-                background-color: #2d3339;
-                border: 2px solid #dc3545;
+                background-color: #f5f7fa;
+                border: 1px solid #e1e4e8;
                 border-radius: 8px;
                 padding: 15px;
             }
         """)
-        message_layout = QVBoxLayout(message_frame)
-        message_layout.setContentsMargins(0, 0, 0, 0)
+        scores_layout = QVBoxLayout(scores_frame)
+        scores_layout.setSpacing(10)
         
-        message_label = QLabel(message)
-        message_label.setStyleSheet("""
+        # Find best score
+        best_idx = max(scores, key=scores.get)
+        
+        # Add each score
+        for i in range(self.matrix.rows):
+            item_name = self.matrix.items.get(i, f"Item {i+1}")
+            score = scores[i]
+            is_best = (i == best_idx)
+            
+            score_item = QFrame()
+            if is_best:
+                score_item.setStyleSheet("""
+                    QFrame {
+                        background-color: #d4f4dd;
+                        border: 2px solid #28a745;
+                        border-radius: 6px;
+                        padding: 12px;
+                    }
+                """)
+            else:
+                score_item.setStyleSheet("""
+                    QFrame {
+                        background-color: #ffffff;
+                        border: 1px solid #d1d5da;
+                        border-radius: 6px;
+                        padding: 12px;
+                    }
+                """)
+            
+            item_layout = QHBoxLayout(score_item)
+            item_layout.setContentsMargins(0, 0, 0, 0)
+            
+            # Item name
+            name_label = QLabel(item_name)
+            if is_best:
+                name_label.setStyleSheet("""
+                    QLabel {
+                        font-size: 13pt;
+                        font-weight: 600;
+                        color: #1e7e34;
+                    }
+                """)
+            else:
+                name_label.setStyleSheet("""
+                    QLabel {
+                        font-size: 12pt;
+                        font-weight: 500;
+                        color: #24292e;
+                    }
+                """)
+            item_layout.addWidget(name_label)
+            
+            item_layout.addStretch()
+            
+            # Score
+            score_label = QLabel(f"{score:.1f}")
+            if is_best:
+                score_label.setStyleSheet("""
+                    QLabel {
+                        font-size: 16pt;
+                        font-weight: 700;
+                        color: #28a745;
+                        background-color: #ffffff;
+                        padding: 8px 16px;
+                        border-radius: 6px;
+                    }
+                """)
+            else:
+                score_label.setStyleSheet("""
+                    QLabel {
+                        font-size: 14pt;
+                        font-weight: 600;
+                        color: #586069;
+                        background-color: #f6f8fa;
+                        padding: 6px 12px;
+                        border-radius: 6px;
+                    }
+                """)
+            item_layout.addWidget(score_label)
+            
+            scores_layout.addWidget(score_item)
+        
+        layout.addWidget(scores_frame)
+        
+        # Best option label
+        best_label = QLabel(f"Best option: {self.matrix.items.get(best_idx, f'Item {best_idx+1}')}")
+        best_label.setStyleSheet("""
             QLabel {
-                font-size: 13pt;
-                color: #f5f7fa;
-                line-height: 1.6;
-                background-color: transparent;
-                border: none;
+                font-size: 14pt;
+                font-weight: 600;
+                color: #28a745;
+                background-color: #f5f7fa;
+                padding: 12px;
+                border-radius: 8px;
+                border: 2px solid #28a745;
             }
         """)
-        message_label.setWordWrap(True)
-        message_layout.addWidget(message_label)
+        best_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(best_label)
         
-        layout.addWidget(message_frame, 1)  # Stretch factor to fill space
-        
-        # OK button
-        ok_btn = QPushButton("OK")
-        ok_btn.setStyleSheet("""
+        # Close button
+        close_btn = QPushButton("Close")
+        close_btn.setStyleSheet("""
             QPushButton {
-                background-color: #dc3545;
+                background-color: #0366d6;
                 color: #ffffff;
                 border: none;
                 border-radius: 8px;
@@ -414,17 +395,17 @@ class MainWindow(QWidget):
                 min-width: 120px;
             }
             QPushButton:hover {
-                background-color: #c82333;
+                background-color: #0256c5;
             }
             QPushButton:pressed {
-                background-color: #bd2130;
+                background-color: #024ea4;
             }
         """)
-        ok_btn.clicked.connect(dialog.accept)
+        close_btn.clicked.connect(dialog.accept)
         
         btn_layout = QHBoxLayout()
         btn_layout.addStretch()
-        btn_layout.addWidget(ok_btn)
+        btn_layout.addWidget(close_btn)
         btn_layout.addStretch()
         layout.addLayout(btn_layout)
         

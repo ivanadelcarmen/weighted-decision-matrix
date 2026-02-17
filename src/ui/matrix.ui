@@ -40,8 +40,14 @@ QFrame {
 }
 
 /* =========================
-   Table settings
+   Table
    ========================= */
+#instruction {
+	color: #ffffff;
+	font-size: 14pt;
+	margin-bottom: 15
+}
+
 QTableWidget {
     background-color: #ffffff;
     color: #24292e;
@@ -178,6 +184,16 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="instruction">
+        <property name="text">
+         <string>Fill all cells with a score from 1 to 10 to see results</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QTableWidget" name="matrixTable">
         <property name="focusPolicy">

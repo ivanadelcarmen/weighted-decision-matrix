@@ -39,8 +39,14 @@ class Ui_form(object):
 "}\n"
 "\n"
 "/* =========================\n"
-"   Table settings\n"
+"   Table\n"
 "   ========================= */\n"
+"#instruction {\n"
+"    color: #ffffff;\n"
+"    font-size: 14pt;\n"
+"    margin-bottom: 15\n"
+"}\n"
+"\n"
 "QTableWidget {\n"
 "    background-color: #ffffff;\n"
 "    color: #24292e;\n"
@@ -174,6 +180,10 @@ class Ui_form(object):
         self.matrixFrame.setObjectName("matrixFrame")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.matrixFrame)
         self.verticalLayout.setObjectName("verticalLayout")
+        self.instruction = QtWidgets.QLabel(parent=self.matrixFrame)
+        self.instruction.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.instruction.setObjectName("instruction")
+        self.verticalLayout.addWidget(self.instruction)
         self.matrixTable = QtWidgets.QTableWidget(parent=self.matrixFrame)
         self.matrixTable.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
         self.matrixTable.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.DoubleClicked|QtWidgets.QAbstractItemView.EditTrigger.SelectedClicked)
@@ -222,5 +232,6 @@ class Ui_form(object):
     def retranslateUi(self, form):
         _translate = QtCore.QCoreApplication.translate
         form.setWindowTitle(_translate("form", "Weighted Decision Matrix"))
+        self.instruction.setText(_translate("form", "Fill all cells with a score from 1 to 10 to see results"))
         self.resultsBtn.setText(_translate("form", " Show results"))
         self.modifyBtn.setText(_translate("form", " Modify matrix"))
