@@ -3,6 +3,5 @@
 venv
 env
 __pycache__
-*.txt
-!requirements.txt
+*.spec
 *.bat
