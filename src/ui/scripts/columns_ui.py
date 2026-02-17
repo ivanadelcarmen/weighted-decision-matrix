@@ -42,7 +42,7 @@ class Ui_form(object):
 "}\n"
 "\n"
 "#contentFrame {\n"
-"    background-color: #00989b;\n"
+"    background-color: #0f3738;\n"
 "    padding: 20px;\n"
 "    margin: 0px 25px 15px 25px;\n"
 "    border: none;\n"
@@ -247,10 +247,6 @@ class Ui_form(object):
         self.horizontalLayout.addItem(spacerItem)
         self.addBtn = QtWidgets.QPushButton(parent=self.buttonsFrame)
         self.addBtn.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("ui\\icons/add.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.addBtn.setIcon(icon)
-        self.addBtn.setIconSize(QtCore.QSize(30, 30))
         self.addBtn.setObjectName("addBtn")
         self.horizontalLayout.addWidget(self.addBtn)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)

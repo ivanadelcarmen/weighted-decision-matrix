@@ -274,20 +274,12 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
         <property name="text">
          <string> Show results</string>
         </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>icons/score.png</normaloff>icons/score.png</iconset>
-        </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="modifyBtn">
         <property name="text">
          <string> Modify matrix</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>icons/edit.png</normaloff>icons/edit.png</iconset>
         </property>
        </widget>
       </item>

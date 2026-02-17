@@ -19,6 +19,7 @@ from PyQt6.QtGui import QIntValidator, QIcon
 
 from ui.scripts.matrix_ui import Ui_form
 from core.weighted_matrix import WeightedMatrix
+from utils import resource_path
 
 
 class CellDoubleClickDelegate(QStyledItemDelegate):
@@ -103,6 +104,10 @@ class MainWindow(QWidget):
         # Connect buttons
         self.ui.modifyBtn.clicked.connect(self.open_modify_dialog)
         self.ui.resultsBtn.clicked.connect(self.show_results)
+
+        # Add the icons of both buttons using resource_path
+        self.ui.modifyBtn.setIcon(QIcon(resource_path("ui/icons/edit.png")))
+        self.ui.resultsBtn.setIcon(QIcon(resource_path("ui/icons/score.png")))
         
         # Connect cell changes to update matrix
         table.cellChanged.connect(self.on_cell_changed)
@@ -257,7 +262,7 @@ class MainWindow(QWidget):
         # Create custom styled dialog
         dialog = QDialog(self)
         dialog.setWindowTitle("Results")
-        dialog.setWindowIcon(QIcon('ui/icons/logo.ico'))
+        dialog.setWindowIcon(QIcon(resource_path('ui/icons/logo.ico')))
         dialog.setMinimumWidth(500)
         dialog.setStyleSheet("""
             QDialog {

@@ -7,6 +7,7 @@ from core.weighted_matrix import WeightedMatrix
 from rows import RowsWindow
 from columns import ColumnsWindow
 from matrix import MainWindow as MatrixWindow
+from utils import resource_path
 
 BASE_DIR = os.path.dirname(__file__)
 
@@ -16,7 +17,7 @@ class MainApp(QMainWindow):
         super().__init__()
         
         self.setWindowTitle("Weighted Decision Matrix")
-        self.setWindowIcon(QIcon(os.path.join(BASE_DIR, "ui", "icons", "logo.ico")))
+        self.setWindowIcon(QIcon(resource_path("ui/icons/logo.ico")))
         self.resize(1100, 750)
         
         # Create shared matrix instance

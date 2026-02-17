@@ -1,8 +1,9 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QWidget, QFrame, QHBoxLayout, QLineEdit, QPushButton, QLabel
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QIcon
 from ui.scripts.columns_ui import Ui_form
+from utils import resource_path
 
 
 class ColumnsWindow(QWidget):
@@ -25,6 +26,10 @@ class ColumnsWindow(QWidget):
         self.ui.nextBtn.setAttribute(Qt.WidgetAttribute.WA_Hover, True)
         self.ui.backBtn.setAttribute(Qt.WidgetAttribute.WA_Hover, True)
         self.ui.addBtn.setAttribute(Qt.WidgetAttribute.WA_Hover, True)
+
+        # Add the icon of "addBtn" using resource_path
+        self.ui.addBtn.setIcon(QIcon(resource_path("ui/icons/add.png")))
+        self.ui.addBtn.setIconSize(QSize(25, 25))
         
         # Load existing columns if matrix has them
         if self.matrix and self.matrix.cols > 0:
@@ -53,7 +58,7 @@ class ColumnsWindow(QWidget):
         col_frame = QFrame()
         col_frame.setStyleSheet("""
             QFrame {
-                background-color: #D4E8FF;
+                background-color: #fff;
                 border: none;
                 border-radius: 8px;
                 padding: 12px;
@@ -127,7 +132,7 @@ class ColumnsWindow(QWidget):
         
         # Delete button
         delete_btn = QPushButton()
-        delete_btn.setIcon(QIcon("ui/icons/delete.png"))
+        delete_btn.setIcon(QIcon(resource_path("ui/icons/delete.png")))
         delete_btn.setStyleSheet("""
             QPushButton {
                 background-color: #dc3545;
