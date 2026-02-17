@@ -231,17 +231,21 @@ class ColumnsWindow(QWidget):
         is_valid = filled_count >= 2 and not has_blank and abs(total_weight - 1.0) < 0.01
         self.ui.nextBtn.setEnabled(is_valid)
         
+        # Update weight label color based on correctness
         if abs(total_weight - 1.0) < 0.01:
             weight_color = "#51e14c"
         else:
-            weight_color = "#3F3F3F"
+            weight_color = "#fd7070"
         
-        # Enable rich text rendering
-        self.ui.instructionLabel.setTextFormat(Qt.TextFormat.RichText)
-        self.ui.instructionLabel.setText(
-            f'Add criteria with weights that sum to 1.0 (minimum 2, maximum 8)<br>'
-            f'<span style="font-weight: 700; color: {weight_color}; font-size: 12pt">Current total: {round(total_weight, 2)}</span>'
-        )
+        # Update the weightLabel with current total
+        self.ui.weightLabel.setText(f"Current total: {round(total_weight, 2)}")
+        self.ui.weightLabel.setStyleSheet(f"""
+            QLabel {{
+                color: {weight_color};
+                font-size: 14pt;
+                font-weight: 700;
+            }}
+        """)
     
     def save_and_close(self):
         """Save columns to matrix and open matrix window"""

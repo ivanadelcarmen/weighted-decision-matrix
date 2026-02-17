@@ -64,7 +64,7 @@ class Ui_form(object):
 "}\n"
 "\n"
 "#instructionLabel {\n"
-"    font-size: 11pt;\n"
+"    font-size: 14pt;\n"
 "    font-weight: 400;\n"
 "    color: #b8d4f1;\n"
 "    margin-top: 5px;\n"

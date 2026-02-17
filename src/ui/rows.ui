@@ -65,7 +65,7 @@ QFrame {
 }
 
 #instructionLabel {
-    font-size: 11pt;
+    font-size: 14pt;
     font-weight: 400;
     color: #b8d4f1;
     margin-top: 5px;

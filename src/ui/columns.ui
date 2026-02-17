@@ -65,10 +65,14 @@ QFrame {
 }
 
 #instructionLabel {
-    font-size: 11pt;
+    font-size: 14pt;
     font-weight: 400;
     color: #b8d4f1;
     margin-top: 5px;
+}
+
+#weightLabel {
+	margin-top: 5
 }
 
 /* =========================
@@ -219,6 +223,21 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QLabel" name="weightLabel">
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Current weight: 1.0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -238,8 +257,8 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>664</width>
-           <height>207</height>
+           <width>964</width>
+           <height>306</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="criteriaLayout">

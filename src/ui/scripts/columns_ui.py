@@ -64,10 +64,15 @@ class Ui_form(object):
 "}\n"
 "\n"
 "#instructionLabel {\n"
-"    font-size: 11pt;\n"
+"    font-size: 14pt;\n"
 "    font-weight: 400;\n"
 "    color: #b8d4f1;\n"
 "    margin-top: 5px;\n"
+"}\n"
+"\n"
+"#weightLabel {\n"
+"    font-size: 16pt;\n"
+"    margin-top: 5\n"
 "}\n"
 "\n"
 "/* =========================\n"
@@ -205,6 +210,13 @@ class Ui_form(object):
         self.instructionLabel.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.instructionLabel.setObjectName("instructionLabel")
         self.verticalLayout_2.addWidget(self.instructionLabel)
+        self.weightLabel = QtWidgets.QLabel(parent=self.titleFrame)
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.weightLabel.setFont(font)
+        self.weightLabel.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.weightLabel.setObjectName("weightLabel")
+        self.verticalLayout_2.addWidget(self.weightLabel)
         self.verticalLayout.addWidget(self.titleFrame)
         self.contentFrame = QtWidgets.QFrame(parent=form)
         self.contentFrame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
@@ -215,7 +227,7 @@ class Ui_form(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.criteriaWidget = QtWidgets.QWidget()
-        self.criteriaWidget.setGeometry(QtCore.QRect(0, 0, 664, 207))
+        self.criteriaWidget.setGeometry(QtCore.QRect(0, 0, 964, 306))
         self.criteriaWidget.setObjectName("criteriaWidget")
         self.criteriaLayout = QtWidgets.QVBoxLayout(self.criteriaWidget)
         self.criteriaLayout.setSpacing(10)
@@ -257,5 +269,6 @@ class Ui_form(object):
         form.setWindowTitle(_translate("form", "Weighted Decision Matrix"))
         self.titleLabel.setText(_translate("form", "Add columns"))
         self.instructionLabel.setText(_translate("form", "Add criteria with weights that sum to 1.0 (minimum 2, maximum 8)"))
+        self.weightLabel.setText(_translate("form", "Current weight: 1.0"))
         self.backBtn.setText(_translate("form", "Back"))
         self.nextBtn.setText(_translate("form", "Next"))
