@@ -15,7 +15,7 @@ from PyQt6.QtWidgets import (
     QFrame
 )
 from PyQt6.QtCore import Qt, pyqtSignal
-from PyQt6.QtGui import QIntValidator
+from PyQt6.QtGui import QIntValidator, QIcon
 
 from ui.scripts.matrix_ui import Ui_form
 from core.weighted_matrix import WeightedMatrix
@@ -257,6 +257,7 @@ class MainWindow(QWidget):
         # Create custom styled dialog
         dialog = QDialog(self)
         dialog.setWindowTitle("Results")
+        dialog.setWindowIcon(QIcon('./ui/icons/grid.png'))
         dialog.setMinimumWidth(500)
         dialog.setStyleSheet("""
             QDialog {
@@ -366,7 +367,7 @@ class MainWindow(QWidget):
         layout.addWidget(scores_frame)
         
         # Best option label
-        best_label = QLabel(f"Best option: {self.matrix.items.get(best_idx, f'Item {best_idx+1}')}")
+        best_label = QLabel(f"{self.matrix.items.get(best_idx, f'Item {best_idx+1}')} is the best option")
         best_label.setStyleSheet("""
             QLabel {
                 font-size: 14pt;

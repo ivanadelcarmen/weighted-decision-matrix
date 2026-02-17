@@ -1,11 +1,14 @@
 import sys
+import os
 from PyQt6.QtWidgets import QApplication, QMainWindow, QStackedWidget
-from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
 
 from core.weighted_matrix import WeightedMatrix
 from rows import RowsWindow
 from columns import ColumnsWindow
 from matrix import MainWindow as MatrixWindow
+
+BASE_DIR = os.path.dirname(__file__)
 
 
 class MainApp(QMainWindow):
@@ -13,6 +16,7 @@ class MainApp(QMainWindow):
         super().__init__()
         
         self.setWindowTitle("Weighted Decision Matrix")
+        self.setWindowIcon(QIcon(os.path.join(BASE_DIR, "ui", "icons", "grid.png")))
         self.resize(1100, 750)
         
         # Create shared matrix instance
