@@ -4,7 +4,7 @@ _**Technology stack**: Python 3.12, Qt Designer, `PyQT6`_
 
 ## Abstract
 
-The following project develops an application with an integrated GUI for easily generating and updating a Weighted Decision Matrix (WDM), which is a common method by which users can decide the best option among multiple items and according to different criteria through a scoring system where the user first defines a numeric scale to work with, assigns a weight to each criterion, and then punctuates each item respect each of them. Each item's total score is the weighted sum of all criteria scores, and the item with the highest score is ultimately interpreted as the best option.
+The following open-source project develops an application with an integrated GUI for easily generating and updating a Weighted Decision Matrix (WDM), which is a common method by which users can decide the best option among multiple items and according to different criteria through a scoring system where the user first defines a numeric scale to work with, assigns a weight to each criterion, and then punctuates each item respect each of them. Each item's total score is the weighted sum of all criteria scores, and the item with the highest score is ultimately interpreted as the best option.
 
 The inner logic of the program is built on Python classes to compose abstract objects which are easier to work with, and all interface components have been developed with Qt tools.
 
@@ -24,6 +24,11 @@ pip install -r requirements.txt
 cd src
 python app.py
 ```
+
+The application is also built via GitHub Actions by using PyInstaller to bundle the code into a .zip file containing an `_internal` folder and the app's executable file which must run in the same directory. The workflow is triggered for each version tag that is created and bundles the app separately for Windows, Linux, and macOS.
+
+> [!WARNING]
+> This application is not code-signed, so Windows may display a SmartScreen warning. Click “More info” and then “Run anyway” to continue.
 
 ## Architecture
 
