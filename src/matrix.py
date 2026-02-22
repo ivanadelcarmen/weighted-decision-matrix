@@ -22,7 +22,7 @@ from core.weighted_matrix import WeightedMatrix
 from utils import resource_path
 
 
-class CellDoubleClickDelegate(QStyledItemDelegate):
+class CellSelectionDelegate(QStyledItemDelegate):
     # Signal to notify when editor content changes
     editorContentChanged = pyqtSignal()
     
@@ -92,7 +92,7 @@ class MainWindow(QWidget):
         table = self.ui.matrixTable
         
         # Create and set delegate
-        self.delegate = CellDoubleClickDelegate()
+        self.delegate = CellSelectionDelegate()
         table.setItemDelegate(self.delegate)
         
         # Connect delegate signal to update button state
