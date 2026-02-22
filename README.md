@@ -40,7 +40,9 @@ Each column is written as an object from the `Column` class with title, values, 
 
 The `WeightedMatrix` class has the "matrix" attribute (i.e. a list with Column objects) along with the "items" attribute for registering row names, by row index, and other two attributes for keeping count of the amount of rows and columns. The object has methods for inserting a value at a $(i,j)$ position, with indices as indicated in the specification above, and returning final scores for each row index (rather than number). Additionally, CRUD methods for the WDM have been implemented in relation with columns and rows to allow for matrix modification after initial generation.
 
-### Graphical user interface
+#
+
+### GUI
 
 The application's interface is structured around three sequential windows that guide users through the matrix creation process: rows definition, columns definition, and matrix scoring. This flow is managed by a central `MainApp` class that uses PyQT6's `QStackedWidget` to handle navigation between screens while maintaining a single shared `WeightedMatrix` instance throughout the session.
 
@@ -65,7 +67,7 @@ cd src
 pyuic6.exe ui/matrix.ui -o ui/scripts/matrix_ui.py # Example with the matrix window
 ```
 
-All icon resources are loaded dynamically using the `resource_path()` utility function defined in `utils.py`, which resolves absolute paths relative to the `src` directory during development.
+All icon resources are loaded dynamically using the `resource_path()` utility function defined in `utils.py`, which resolves absolute paths relative to the `src` directory during development and relative to PyInstaller's temporary directory when the application is packaged as an executable as part of the repository's GitHub Actions workflow.
 
 #
 
@@ -97,5 +99,6 @@ weighted-decision-matrix/
 ├── README.md              # Project overview, instructions, and architecture details
 ├── LICENSE                # License information for the repository
 ├── .gitignore             # Directories to be ignored by Git
+├── pyinstaller.spec       # Specification for bundling the app into an executable using PyInstaller
 └── requirements.txt       # Project dependencies to be installed using pip
 ```
