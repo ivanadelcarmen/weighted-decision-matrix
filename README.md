@@ -10,6 +10,21 @@ The inner logic of the program is built on Python classes to compose abstract ob
 
 All icons are sourced from [Flaticon](https://www.flaticon.com/) and used under the Free License for non-commercial purposes.
 
+## Guideline
+
+Before deploying the project, dependencies have to be installed globally or locally in a virtual environment placed in the root directory which has to be activated. Then, run the application inside the src/ directory which contains all source files. Additionally, the window components (i.e. `columns.py`, `rows.py`, `matrix.py`) can be executed individually for testing. Example for Unix-based shells:
+
+``` bash
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+``` bash
+cd src
+python app.py
+```
+
 ## Architecture
 
 Logically, the WDM specification implies:
@@ -50,7 +65,7 @@ cd src
 pyuic6.exe ui/matrix.ui -o ui/scripts/matrix_ui.py # Example with the matrix window
 ```
 
-All icon resources are loaded dynamically using the `resource_path()` utility function defined in `utils.py`, which resolves absolute paths relative to the `src` directory during development and relative to PyInstaller's temporary directory when the application is packaged as an executable using that library, if the user wishes to do so.
+All icon resources are loaded dynamically using the `resource_path()` utility function defined in `utils.py`, which resolves absolute paths relative to the `src` directory during development.
 
 #
 
