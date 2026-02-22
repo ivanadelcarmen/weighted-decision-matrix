@@ -62,7 +62,7 @@ class ColumnsWindow(QWidget):
                 border: none;
                 border-radius: 8px;
                 padding: 12px;
-                margin: 5px 0px 5px 0
+                margin: 2px 0px 2px 0
             }
         """)
         
