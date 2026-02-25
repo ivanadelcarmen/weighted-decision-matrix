@@ -17,7 +17,7 @@ class Ui_form(object):
 "   Global settings\n"
 "   ========================= */\n"
 "#form {\n"
-"    background-color: #1a1d23;\n"
+"    background-color: #1E1E1E;\n"
 "    font-family: Segoe UI Semibold;\n"
 "}\n"
 "\n"

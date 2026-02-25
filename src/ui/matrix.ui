@@ -18,7 +18,7 @@
    Global settings
    ========================= */
 #form {
-    background-color: #1a1d23;
+    background-color: #1E1E1E;
 	font-family: Segoe UI Semibold;
 }
 

@@ -20,6 +20,9 @@ class MainApp(QMainWindow):
         self.setWindowIcon(QIcon(resource_path("ui/icons/logo.ico")))
         self.resize(1100, 750)
         
+        # Set window background color to override system theme
+        self.setStyleSheet("QMainWindow { background-color: #1E1E1E; }")
+        
         # Create shared matrix instance
         self.matrix = WeightedMatrix()
         
